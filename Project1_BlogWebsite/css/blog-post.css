@@ -1,0 +1,53 @@
+.container{
+    /* Step 1: Set display to grid */
+      display:grid;
+   /* Step 2: setup rows amd columns */
+      grid-template-columns: 300px,300px,300px;
+      grid-template-rows: 200px,600px;
+   /* Step 3: setup named grid areas */
+      border: 2px solid yellow;
+      grid-template-areas:
+      "hd"
+      "feat"
+      "main"
+      "ft";
+    
+  }
+  .box{
+    border: 1px solid red;
+    background: #F8FA9D;
+    }
+
+  .header{
+      /* Set elements grid-area here */
+      grid-area: hd;
+  }
+
+  .footer{
+    /* Set elements grid-area here */
+    grid-area: ft;
+  }
+  .feature{
+    /* Set elements grid-area here */
+    grid-area:feat ;
+  }
+  .content{
+    /* Set elements grid-area here */
+    grid-area: main;
+  }
+
+
+    /* If wide enough */
+  @media(min-width:900px){
+    .container{
+      display:grid;
+      grid-template-columns: 300px 300px 300px;
+      grid-template-rows: 250px 600px;
+      grid-template-areas: 
+      "hd hd hd hd hd hd hd hd"
+      "feat feat feat feat feat feat feat feat"
+      "main main main main main main main main"
+      "ft ft ft ft ft ft ft ft";
+      border: 2px solid yellow;
+  }
+}
