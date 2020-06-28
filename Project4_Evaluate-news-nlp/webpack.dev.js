@@ -37,7 +37,7 @@ module.exports = {
             dry: true,
             // Write Logs to Console
             verbose: true,
-            // Automatically remove all unused webpack assets on rebuild
+            // Automatically remove all unused webpack asset on rebuild
             cleanStaleWebpackAssets: true,
             protectWebpackAssets: false
         }),
