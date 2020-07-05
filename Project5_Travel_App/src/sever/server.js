@@ -1,5 +1,6 @@
+var path = require('path')
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+let projectData = {};
 
 // Require Express to run server and routes
 const express = require('express');
@@ -15,50 +16,43 @@ app.use(bodyParser.json());
 // Cors for cross origin allowance
 const cors = require('cors');
 app.use(cors());
+
 // Initialize the main project folder
-app.use(express.static('website'));
+app.use(express.static('production'));
+
+//Route for a get request
+app.get('/',function(req, res){
+    res.sendFile('production/index.html')
+})
+
+//POST ROUTE
+app.post('/addContent', addData);
+
+function addData(request, response){
+    projectData['destination']=request.body.destination;
+    projectData['departureData']=request.body.departureData;
+    projectData['daysLeft']=request.body.daysLeft;
+    projectData['weather']=request.body.weather;
+ 
+    response.send(projectData);
+
+}
 
 // Setup Server
-const port = 7000;
+const port = 3000;
 const server = app.listen(port, listening);
 function listening(){
     console.log("server running");
     console.log(`running on localhost: ${port}`);
 }
+
 //GET route
 app.get('/all', sendData);
 function sendData(request, response){
     response.send(projectData);
 };
 
-//TODO-ROUTES!
-// app.post('/add', callBack);
-// function callBack(req, res){
-//     res.send('POST received');
-// };
-// const weatherData=[];
-// app.get('/all',getData)
-// function getData(req, res){
-//     res.send(weatherData)
-//     console.log(weatherData)
-// }
 
-//POST ROUTE
-app.post('/addContent', addContent);
 
-function addContent(req, res){
-    console.log(req.body)
-
-    newEntry = {
-        zip:req.body.zip,
-        temp:req.body.temp,
-        content:req.body.content
-    }
-    projectData = newEntry;
-    res.send(true);
-    // weatherData.push(newEntry)
-    // res.send(weatherData)
-    // console.log(weatherData)
-}
 
 

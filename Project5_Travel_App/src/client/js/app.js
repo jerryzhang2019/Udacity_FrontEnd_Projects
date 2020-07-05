@@ -1,90 +1,92 @@
-/* Global Variables */
-let baseURL = 'https://api.openweathermap.org/data/2.5/weather?'
-let apiKey = '67f1f036f1d0204f97f507300d65c902';
+import {checkUserInput} from "./checkInput.js"
 
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let today = new Date().toISOString().substr(0,10);
+console.log(today)
+document.querySelector("#form-date").value=today;
 
-//store input
-const zip = document.getElementById('zip');
-const feeling = document.getElementById('feeling');
-const btnSubmit = document.getElementById('generate');
+const timeNowInSeconds = (Date.now()) / 1000;
 
-//store output
-const date = document.getElementById('date');
-const temp = document.getElementById('temp');
-const content = document.getElementById('content');
+//web APIS >> routes
+const geonamnesApiURL = "";
+const weatherbitApiRUL = "";
+const pixabayApiURL = "";
 
-//get weather function
-const getWeather = async (baseURL, zip,apikey)=>{
-    const res = await fetch(baseURL+zip+apikey)
-    try{
-        const data = await res.json();
-        console.log(data)
-        return data;
-    }catch (error){
-        console.log("error",error);
-    }
-}
-//post data function
-const postData = async (url = '', data={}) => {
-    const respone = await fetch(url, {
-        method: 'POST',
-        credentials: 'same-origin',
+//web APIs >> keys
+const geonamesApiUsername = "ADD YOUR USERNAME";
+const WeatherbitKey = "ADD YOUR KEY";
+const pixabayAPIkey = "ADD YOUR KEY";
+
+//selecting DOM element
+const resultSection = document.querySelector("#result");
+const formSection = document.querySelector("#trip-form");
+const resetButton = document.querySelector("#delete");
+const departureInput = document.querySelector("#form-departure");
+const arriveInput = document.querySelector("#form-arrival");
+const dateInput = document.querySelector("#form-date");
+
+//post date to our local server
+export const postData = async(url='', data={}) =>{
+    const fetchData = await fetch(url,{
+        method: "POST",
+        credentials:"same-origin",
         headers:{
-            'content-type':'application/jsion',
+            "Content-Type":"application/json"
         },
         body:JSON.stringify({
-            date: data.date,
-            temp:data.temp,
-            content:data.content
+            destination: data.destination,
+            departureDate:data.departureDate,
+            daysLeft:data.daysLeft,
+            weather:`${data.weatherDepartureData[0].temp} degrees Celsius, ${data.weatherDepartureData[0].weather.description}`
         })
-    });
-
-    try{
-        const newData = await response.json();
-        return newData
-    }catch(error){
-        console.log("error", error);
-    }
-}
-
-// update UI function
-const updateUI = async() =>{
-    const request = await fetch('/all');
-    try{
-        const allData = await request.json();
-
-        document.getElementById('zip').innerHTML = allData.zip;
-        document.getElementById('feeling').innerHTML = allData.feeling;
-        document.getElementById('content').innerHTML = allData.content;
-    }catch(error){
-        console.log("error", error);
-    }
-}
-
-//generate data function
-function generaetData(event){
-    event.preventDefault();
-    getWeather(baseURL, zip)
-    .then(function(weatherData){
-        postData('/addContent',{
-            date: newDate,
-            temp:weatherData.main.temp,
-            content:feeling
-        });
     })
-    .then(function(resultdata){
-        updateUI();
-    });
+    try{
+        const userData = await fetchData.json();
+        return userData;
+    }catch(error){
+        console.log("error", error);
+    }
 }
-// Event listener to add function to existing HTML DOM element
-btnSubmit.addEventListener('click', generaetData)
+
+//get city data
+export const getCityData = async (geonamesApiURL, arriveInputText,geonamesApiUsername)=>{
+    const data=await fetch(geonamesApiURL + arriveInputText+'&maxRows=5&'+'username='+geonamesApiUsername);
+    try{
+        const cityData = await data.json();
+        return cityData;
+    }catch(error){
+        console.log("error",error);
+    }
+};
+//get weather data
+export const getWeatherData = async(cityLatitude, cityLongitude) =>{
+
+    try{
+        const weatherData = await data.json();
+        return weatherData;
+    }catch(error){
+        console.log("error",error);
+    }
+};
+
+//update UI
+export const updateUI = async (userData)=>{
+
+};
+//add trip
+export const addTrip = (event =>{
+    event.preventDefault();
+})
 
 
+//adding event listeners
+resetButton.addEventListener('click', (event) =>{
+    event.preventDefault();
+    formSection.reset();
+    document.querySelector("#form-date").value = today;
+    resultSection.style.display="none";
+})
 
 
-
-
-
+//submit
+const submitRequest = formSection.addEventListener('submit', addTrip);
+export {submitRequest}
