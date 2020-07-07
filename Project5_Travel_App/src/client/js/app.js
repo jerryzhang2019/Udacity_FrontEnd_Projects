@@ -59,7 +59,7 @@ export const getCityData = async (geonamesApiURL, arriveInputText,geonamesApiUse
 };
 //get weather data
 export const getWeatherData = async(cityLatitude, cityLongitude) =>{
-
+    const data = await fetch(weatherbitApiRUL+'lat='+cityLatitude+'&lob='+cityLongitude+"&key"+WeatherbitKey);
     try{
         const weatherData = await data.json();
         return weatherData;
@@ -70,11 +70,60 @@ export const getWeatherData = async(cityLatitude, cityLongitude) =>{
 
 //update UI
 export const updateUI = async (userData)=>{
+    resultSection.style.display='block';
+    resultSection.scrollIntoView({behavior:"smooth"});
+    console.log('userData:', userData)
+    const data = await fetch(pixabayAPIURL+pixabayAPIkey+"&q="+userData.destination+ + "+city&name_type=photo");
+    try{
+        const requiredImage = await data.json();
+        document.querySelector("Pixabay-image").setAttribute('src',requiredImage.hits[0].webformateURL);
+        document.querySelector("#destination").innerHTML=userData.destination;
+        document.querySelector("#date").innerHTML=userData.departureDate.split("-").reverse().json("/");
+        document.querySelector("#days").innerHTML=userData.daysLeft;
+        document.querySelector("#temp").innerHTML=userData.weather;
+    }catch(error){
+        console.log("error", error);
+    }
 
 };
 //add trip
 export const addTrip = (event =>{
     event.preventDefault();
+
+    const departure = departureInput.value;
+    const destination = arriveInput.value;
+    const departureDate = dateInput.value;
+    const timeInSeconds = (new Data(departureDate).getTime())/1000;
+    //1 day = 86400 seconds
+    const daysLeft = Math.floor((timeInSeconds - timeNowInSeconds) / 86400) + 1;
+
+    //check user input
+    checkUserInput(departure, destination);
+
+    getCityData(geonamnesApiURL, destination, geonamesApiUsername)
+        .then((cityData) => {
+            const cityLongitude = cityData.geonames[0].lng;
+            const cityLatitude = cityData.geonames[0].lat;
+            const weatherData = getWeatherData(cityLatitude, cityLongitude);
+            return weatherData;
+        })
+        .then((weatherData) => {
+            let weatherDepartureData = weatherData.data.filter((each => {
+                return departureData === each['valid_date']
+            }))
+            if(weatherDepartureData.length === 0){
+                weatherDepartureData = [{
+                    temp: 'unknown',
+                    weather: {
+                        description: 'unknown'
+                    }
+                }]
+            }
+            const userData = postData('http://localhost:3000/add', {destination, departureDate, daysLeft, weatherDepartureData});
+            return userData
+        }).then((userData) => {
+            updateUI(userData);
+        })
 })
 
 
