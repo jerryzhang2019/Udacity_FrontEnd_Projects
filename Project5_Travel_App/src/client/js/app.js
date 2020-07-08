@@ -8,7 +8,7 @@ const timeNowInSeconds = (Date.now()) / 1000;
 
 //web APIS >> routes
 const geonamnesApiURL = "http://api.geonames.org/searchJSON?q=";
-const weatherbitApiURL = "";
+const weatherbitApiURL = "https://cors-anywhere.herokuapp.com/https://api.weatherbit.io/v2.0/forecast/daily?";
 const pixabayApiURL = "https://pixabay.com/api/?key=";
 
 //web APIs >> keys
