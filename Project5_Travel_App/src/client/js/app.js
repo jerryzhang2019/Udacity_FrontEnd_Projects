@@ -7,14 +7,14 @@ document.querySelector("#form-date").value=today;
 const timeNowInSeconds = (Date.now()) / 1000;
 
 //web APIS >> routes
-const geonamnesApiURL = "";
-const weatherbitApiRUL = "";
-const pixabayApiURL = "";
+const geonamnesApiURL = "http://api.geonames.org/searchJSON?q=";
+const weatherbitApiURL = "";
+const pixabayApiURL = "https://pixabay.com/api/?key=";
 
 //web APIs >> keys
-const geonamesApiUsername = "ADD YOUR USERNAME";
-const WeatherbitKey = "ADD YOUR KEY";
-const pixabayAPIkey = "ADD YOUR KEY";
+const geonamesApiUsername = "JerryZhang2020";
+const WeatherbitKey = "";
+const pixabayAPIkey = "17380540-339e203bdfdb80a5fba13fad4";
 
 //selecting DOM element
 const resultSection = document.querySelector("#result");
