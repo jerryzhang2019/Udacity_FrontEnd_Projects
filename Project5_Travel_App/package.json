@@ -2,16 +2,17 @@
   "name": "project5_travel_app",
   "version": "1.0.0",
   "description": "## Overview This project requires you to create an asynchronous web app that uses Web API and user data to dynamically update the UI.",
-  "main": "webpack.common.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server/server.js",
-    "build-dev": "webpack-dev-server -- config webpack.dev.js --open",
+    "build-dev": "webpack-dev-server --config webpack.dev.js --open",
     "build-prod": "webpack --config webpack.prod.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "html-webpack-plugin": "^4.3.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
   },
