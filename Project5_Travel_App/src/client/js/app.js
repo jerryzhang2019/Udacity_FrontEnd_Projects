@@ -13,7 +13,7 @@ const pixabayApiURL = "https://pixabay.com/api/?key=";
 
 //web APIs >> keys
 const geonamesApiUsername = "JerryZhang2020";
-const WeatherbitKey = "";
+const WeatherbitKey = "8755b770092b4abe92e2f7bf9a4b6ec6";
 const pixabayAPIkey = "17380540-339e203bdfdb80a5fba13fad4";
 
 //selecting DOM element
