@@ -23,7 +23,7 @@ body {
 }
 
 .TripImage{
-    width: 550px;
+    width: 100%;
     height: 500px;
 }
 
@@ -37,7 +37,7 @@ body {
     }
 }
 
-@media screen and (max-width:400px) {
+@media screen and (max-width:500px) {
     body {
         font-size: 14px;
     }
