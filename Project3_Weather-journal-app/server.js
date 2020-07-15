@@ -31,18 +31,6 @@ function sendData(request, response){
     response.send(projectData);
 };
 
-//TODO-ROUTES!
-// app.post('/add', callBack);
-// function callBack(req, res){
-//     res.send('POST received');
-// };
-// const weatherData=[];
-// app.get('/all',getData)
-// function getData(req, res){
-//     res.send(weatherData)
-//     console.log(weatherData)
-// }
-
 //POST ROUTE
 app.post('/addContent', addContent);
 
@@ -50,15 +38,12 @@ function addContent(req, res){
     console.log(req.body)
 
     newEntry = {
-        zip:req.body.zip,
         temp:req.body.temp,
+        date:req.body.date,
         content:req.body.content
     }
     projectData = newEntry;
     res.send(true);
-    // weatherData.push(newEntry)
-    // res.send(weatherData)
-    // console.log(weatherData)
-}
+};
 
 
