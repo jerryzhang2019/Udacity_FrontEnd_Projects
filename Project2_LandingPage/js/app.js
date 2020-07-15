@@ -31,12 +31,7 @@ function contentIsInViewport(element){
     const pageScrollHeight = window.pageYOffset;
     const topValue = element.offsetTop;
 
-    if(pageScrollHeight >= topValue){
-        isVisible = true;
-    }else{
-        isVisible = false;
-    }
-    return isVisible;
+    return pageScrollHeight >= topValue;
 }
 /**
  * End Helper Functions最终助手功能
@@ -75,7 +70,7 @@ function highlightSection(section){
                 menu.classList.add('menu__link__active');
             }
         });
-        section.classList.add('heighlight');
+        section.classList.add('highlight');
     }else{
         section.classList.remove('hightlight');
     }
