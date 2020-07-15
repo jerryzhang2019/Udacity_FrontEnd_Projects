@@ -28,7 +28,7 @@ console.log(pageSections);
 function contentIsInViewport(element){
     return window.pageYOffset >= element.offsetTop;
 }
-const contentIsInViewport = element => window.pageYOffset >= element.offsetTop;
+
 /**
  * End Helper Functions最终助手功能
  * Begin Main Functions开始主要功能
