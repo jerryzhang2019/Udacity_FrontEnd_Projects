@@ -17,16 +17,20 @@
  * Define Global Variables定义全局变量
  * 
 */
-const pageSections = document.querySelectorAll('section');
-console.log(pageSections);
+let sectionList = document.querySelectorAll('section');
+let navListTag = document.getElementById('navbar_list');
+let sectionLength = sectionList.length;
+let sectionPositions = [];
+let oldPosition = 0;
+let currentPosition = 0;
 
 /**
  * End Global Variables结束全局变量
  * Start Helper Functions启动助手功能
  * 
 */
-function contentIsInViewport(element){
-    return window.pageYOffset >= element.offsetTop;
+function scrollToSection(sectionID){
+    window.scrollTo(0,sectionID);
 }
 
 /**
@@ -36,80 +40,44 @@ function contentIsInViewport(element){
 */
 
 // build the nav建立导航
-function buildNav(){
-    const navContainer = document.querySelector("#navbar__list");
-    const containerFragment = document.createDocumentFragment();
-
-    for(const section of pageSections){
-        const liItem = document.createElement('li');
-        const aItem = document.createElement('a');
-        const sectionName = section.getAttribute('data-nav');
-
-        aItem.setAttribute("data-section", section.id);
-        aItem.setAttribute("class", 'menu__link');
-        aItem.textContent = sectionName;
-        liItem.appendChild(aItem);
-        containerFragment.appendChild(liItem);
-    };
-    navContainer.appendChild(containerFragment);
-}
-
-// Add class 'active' to section when near top of viewport
-//在视口顶部附近时，将“活动”类添加到部分
-function highlightSection(section){
-    if(contentIsInViewport(section)){
-        document.querySelectorAll(".menu__link").forEach(menu =>{
-            menu.classList.remove("menu__link__active");
-            const sectionId = section.getAttribute("id");
-            const menuId = menu.getAttribute("data-section");
-            if(menuId == sectionId){
-                menu.classList.add('menu__link__active');
-            }
-        });
-        section.classList.add('highlight');
-    }else{
-        section.classList.remove('hightlight');
-    }
-}
-// Scroll to anchor ID using scrollTO event
-//使用scrollTO事件滚动到锚点ID
-function scrollHandler(){
-    document.querySelectorAll(".menu__link").forEach(menuLink => {
-        menuLink.addEventListener("click", function(event){
-            event.preventDefault();
-            document.querySelectorAll(".menu__link").forEach(menu => {
-                menu.classList.remove("menu__link__active");
-            });
-
-            event.target.classList.add("menu__link__active");
-            const targetSectionId = event.target.getAttribute("data-section");
-
-            const moveTop = document.getElementById(targetSectionId).offsetTop;
-            window.scrollTo({
-                top:moveTop,
-                behavior: "smooth"
-            });
-        });
-    });
-}
-/**
- * End Main Functions结束主要功能
- * Begin Events开始活动
- * 
-*/
-
-// Build menu 构建菜单
-
-// Scroll to section on link click滚动到链接部分，点击
-document.addEventListener("DOMContentLoaded", (event) => {
-    buildNav();
-    scrollHandler();
+sectionList.forEach((element, index) => {
+    let sectionName = element.getAttribute('data-nav');
+    let toOffSection = element.offsetTop+30;
+    let liTag = document.createElement('li');
+    liTag.setAttribute('class', 'menu_link' + index);
+    liTag.innerHTML = `<a onClick = "scrollToSection(${toOffSection})">${sectionName}</a>`;
+    navListTag.appendChild(liTag);
 });
-// Set sections as active将部分设置为活动
-document.addEventListener('scroll', (event) =>{
-    for (const section of pageSections){
-        highlightSection(section);
+
+// add event listener
+document.addEventListener('scroll', () => {
+    currentPosition = this.scrollY;
+
+    sectionPositions = [];
+    sectionList.forEach(element =>
+        sectionPositions.push(element.getBoundingClientRect().top + 50));
+
+//
+    let addIndex = sectionPositions.findIndex(element => element >0);
+    for (let i = 0; i < sectionLength; i++){
+        if (addIndex === i){
+            document.querySelector('.menu_link' + addIndex).classList.add('active');
+            document
+                .querySelector(`#section${addIndex + 1}`)
+                .classList.add('highlight');
+
+        }else{
+            document.querySelector('.memu_link'+i).classList.remove('active');
+            document.querySelector(`#section${i+1}`).removeAttribute('class');
+        }
+
     }
 });
+
+
+
+
+
+
 
 
