@@ -31,7 +31,11 @@ let currentPosition = 0;
  * 
 */
 function scrollToSection(sectionID){
-    window.scrollTo(0,sectionID);
+    //window.scrollTo(0,sectionID);
+    window.scrollTo({
+      top: sectionID,
+      behavior: "smooth",
+    });
 }
 
 /**

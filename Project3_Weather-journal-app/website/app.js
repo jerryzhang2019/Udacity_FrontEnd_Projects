@@ -17,7 +17,7 @@ const temp = document.getElementById('temp');
 const content = document.getElementById('content');
 
 //get weather function
-const getWeather = async (apiURL, zipValue)=>{
+const getWeather = async (baseURL, zip, API_KEY)=>{
     const requestURL = apiURL + "zip=" + zipValue + "&appid=" + apiKey;
     const res = await fetch(requestURL)
 
