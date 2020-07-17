@@ -1,10 +1,10 @@
 /* Global Variables */
-const API_KEY = '67f1f036f1d0204f97f507300d65c902';
-const baseURL = 'https://api.openweathermap.org/data/2.5/weather?q=';
+const API_KEY = '&appid=67f1f036f1d0204f97f507300d65c902';
+const baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 
 function convertData(unixtimestamp){
     var months_array = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July','Aug','Sep','Oct','Nov','Dec'];
-    var date = new DataCue(unixtimestamp * 1000);
+    var date = new Date(unixtimestamp * 1000);
     var year = date.getFullYear();
     var month = months_array[date.getMonth()];
     var day = date.getDate();
@@ -23,6 +23,7 @@ function performanceAction(){
     getAPIData(baseURL, zip, API_KEY)
         .then(function(data){
             console.log('AllData from api: ', data);
+
             postWeatherData('/addWeatherData', {
                 temperature:data.main.temp,
                 data: convertData(data.dt),
@@ -37,6 +38,8 @@ function performanceAction(){
             alert('zip should be of length 5!');
         }else{
             const url = `${baseURL}${zip}${API_KEY}`;
+            console.log('url data is: ', url);
+
             const request = await fetch(url);
             try{
                 const allData = await request.json();
