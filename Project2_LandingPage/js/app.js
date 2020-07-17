@@ -18,7 +18,7 @@
  * 
 */
 let sectionList = document.querySelectorAll('section');
-let navListTag = document.getElementById('navbar_list');
+let navListTag = document.getElementById('navbar__list');
 
 let sectionLength = sectionList.length;
 let sectionPositions = [];
@@ -64,7 +64,7 @@ document.addEventListener('scroll', () => {
     for (let i = 0; i < sectionLength; i++) {
       if (addIndex === i) {
         document.querySelector('.menu_link' + addIndex).classList.add('active');
-        Document
+        document
           .querySelector(`#section${addIndex + 1}`)
           .classList.add('highlight');
       } else {
