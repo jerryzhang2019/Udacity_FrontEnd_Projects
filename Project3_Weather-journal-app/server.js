@@ -27,6 +27,7 @@ function listening(){
 }
 //GET route
 app.get('/all', sendData);
+
 function sendData(request, response){
     response.send(projectData);
 };
@@ -34,16 +35,10 @@ function sendData(request, response){
 //POST ROUTE
 app.post('/addContent', addContent);
 
-function addContent(req, res){
-    console.log(req.body)
+function addContent(request, response){
 
-    newEntry = {
-        temp:req.body.temp,
-        date:req.body.date,
-        content:req.body.content
-    }
-    projectData = newEntry;
-    res.send(true);
+    projectData = request.body;
+    response.send(projectData);
 };
 
 
