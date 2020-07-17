@@ -72,6 +72,7 @@ section {
 
 .navbar__menu li {
     display: inline-block;
+    padding-top: 15px;
 }
 
 .navbar__menu .menu__link {
@@ -87,6 +88,46 @@ section {
     color: #fff;
     transition: ease 0.3s all;
 }
+#navbar_list {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    height: 50px;
+    text-transform: uppercase;
+    font-size: 14px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 6000;
+    background: #fff;
+    box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
+    color: #525c65;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  
+  li a {
+    text-decoration: none;
+    padding: 20px;
+    cursor: pointer;
+  }
+  
+  a,
+  a:visited,
+  a:active {
+    color: inherit;
+  }
+  
+  /* Active Section */
+  .active {
+    background-color:#02b3e4;
+    font-weight: bold;
+  }
+  
+
+
+
+
 
 /* Header Styles */
 .page__header {
