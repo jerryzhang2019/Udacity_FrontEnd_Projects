@@ -33,6 +33,9 @@ app.listen(8082, function () {
 
 app.post('/testing',async(req, res, next) =>{
     console.log(req.body);
+
+
+    
     try{
         var data=textapi.sentiment({
             'text':req.body.theText
