@@ -67,25 +67,31 @@ body {
 
 .headline {
   grid-area: hd;
-  padding-left: 30px;
+  padding-left: 40px;
+  text-align: center;
+  font-size: 40px;
   
 }
 
 .zip {
   grid-area: zip;
+  text-align: center;
 }
 
 .feel {
   grid-area: feeling;
+  text-align: center;
 }
 
 .generate-button {
   grid-area: add;
+  text-align: center;
 }
 
 #generate {
   color: whitesmoke;
   cursor: pointer;
+  text-align: center;
 }
 
 .title {
@@ -99,7 +105,7 @@ label {
   font-size: 18px;
   font-weight: 600;
   color: #221e1d;
-  text-align: centryer;
+  text-align: center;
 }
 
 input {
@@ -113,8 +119,8 @@ input {
     font-family: 'Overpass', sans-serif;
     border: 1px solid black;
     padding-left: 5px;
-    text-align: centryer;
     margin: 0 auto;
+    text-align: center;
 }
 
 button {

@@ -24,7 +24,7 @@ function performanceAction(){
         .then(function(data){
             console.log('AllData from api: ', data);
 
-            postWeatherData('/addWeatherData', {
+            postWeatherData('/addContent', {
                 temperature:data.main.temp,
                 data: convertData(data.dt),
                 userResponse: feelings
@@ -82,10 +82,12 @@ const updateUI = async() =>{
     try{
         const data = await request.json();
         console.log('UpdateUI: ', data);
-        document.getElementById('date').innerHTML = `Date: ${data.date}`;
+        //对data进行数据处理
+        let result = data.data;
+        document.getElementById('date').innerHTML = `Date: ${result.date}`;
 
-        document.getElementById('temp').innerHTML = `Temperature: ${data.temperature}`;
-        document.getElementById('content').innerHTML =  `Feelings: ${data.userResponse}`;
+        document.getElementById('temp').innerHTML = `Temperature: ${result.temperature}`;
+        document.getElementById('content').innerHTML =  `Feelings: ${result.userResponse}`;
 
 
     }catch(error){
