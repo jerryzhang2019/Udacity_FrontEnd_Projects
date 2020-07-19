@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.static('website'));
 
 // Setup Server
-const port = 7000;
+const port = 8000;
 const server = app.listen(port, listening);
 function listening(){
     console.log("server running");

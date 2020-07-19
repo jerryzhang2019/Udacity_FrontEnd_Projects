@@ -26,16 +26,16 @@ function performanceAction(){
 
             postWeatherData('/addContent', {
                 temperature:data.main.temp,
-                data: convertData(data.dt),
+                date: convertData(data.dt),
                 userResponse: feelings
             });
         })
-        .then(() => updateUI());
+        .then(updateUI);
     }
 
     const getAPIData = async (baseURL, zip, API_KEY) => {
         if (zip.toString().length !==5 ){
-            alert('zip should be of length 5!');
+            return alert('zip should be of length 5!');
         }else{
             const url = `${baseURL}${zip}${API_KEY}`;
             console.log('url data is: ', url);
@@ -43,11 +43,12 @@ function performanceAction(){
             const request = await fetch(url);
             try{
                 const allData = await request.json();
-                if(allData.message){
-                    alert(allData.message);
-                }else{
-                    return allData;
-                }
+                // if(allData.message){
+                //     alert(allData.message);
+                // }else{
+                //     return allData;
+                // }
+                return allData.message? alert(allData.message):allData;
             }catch(error){
                 console.log('error', error);
             }
