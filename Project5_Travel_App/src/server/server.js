@@ -1,58 +1,52 @@
-var path = require('path')
-// Setup empty JS object to act as endpoint for all routes
+var path = require('path');
+
+// Empty JS object as an endpoint for all routes
 let projectData = {};
 
-// Require Express to run server and routes
+// Getting express package to run the server and the routes
 const express = require('express');
-// Start up an instance of app
-const app =  express();
-// Dependencies
-const bodyParser = require('body-parser');
+
+// An instance of express
+const app = express();
+
 /* Middleware*/
-//Here we are configuring express to use body-parser as middle-ware.
+// Dependencies: body-parser
+const bodyParser = require('body-parser');
+
+// using body-parser as a middleware in the app (BodyParser config)
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Cors for cross origin allowance
+// Dependencies: cors
 const cors = require('cors');
+
+// using cors for cross origin allowance in the app
 app.use(cors());
 
-// Initialize the main project folder
+// Initialize the main project file
 app.use(express.static('production'));
 
-//Route for a get request
-app.get('/',function(req, res){
-    res.sendFile('production/index.html')
+
+// Route for a GET request
+app.get('/', function (req, res) {
+  res.sendFile('production/index.html')
 })
 
-//POST ROUTE
-app.post('/addContent', addData);
+// Route for a POST request
+app.post('/add', addData);
 
-function addData(request, response){
-    projectData['destination']=request.body.destination;
-    projectData['departureData']=request.body.departureData;
-    projectData['daysLeft']=request.body.daysLeft;
-    projectData['weather']=request.body.weather;
- 
-    response.send(projectData);
-
+function addData(request, response) {
+  projectData['destination'] = request.body.destination;
+  projectData['departureDate'] = request.body.departureDate;
+  projectData['daysLeft'] = request.body.daysLeft;
+  projectData['weather'] = request.body.weather;
+  response.send(projectData);
 }
 
 // Setup Server
 const port = 3000;
-const server = app.listen(port, listening);
-function listening(){
-    console.log("server running");
-    console.log(`running on localhost: ${port}`);
-}
+const server = app.listen(port, listeningToServer);
 
-//GET route
-app.get('/all', sendData);
-function sendData(request, response){
-    response.send(projectData);
+function listeningToServer() {
+  console.log(`running on localhost: ${port}`);
 };
-
-
-
-
-
