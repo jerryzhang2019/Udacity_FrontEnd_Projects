@@ -1,25 +1,27 @@
-import {checkUserInput} from "./checkInput.js"
+import { checkUserInput } from "./checkInput.js"
 
-let today = new Date().toISOString().substr(0,10);
+// Setting the default date in the form to be today's date 
+let today = new Date().toISOString().substr(0, 10);
 // console.log(today)
+document.querySelector("#form-date").value = today;
 
 
-document.querySelector("#form-date").value=today;
-
-
+// Global variables
 const timeNowInSeconds = (Date.now()) / 1000;
+// console.log(`The time elapsed in seconds is: ${timeNowInSeconds}`)
 
 
 // Web APIs >> routes
 const geonamesApiURL = 'http://api.geonames.org/searchJSON?q=';
-
-const weatherbitApiURL = "https://cors-anywhere.herokuapp.com/https://api.weatherbit.io/v2.0/forecast/daily?";
+// Adding the cors-anywhere server that adds CORS headers to a request to fix the CORS Error 
+const weatherbitApiURL = "https://api.weatherbit.io/v2.0/forecast/daily?";
 const pixabayApiURL = "https://pixabay.com/api/?key=";
 
-//web APIs >> keys
+
+// Web APIs >> keys
 const geonamesApiUsername = "jerryzhang2020";
-const WeatherbitKey = "8755b770092b4abe92e2f7bf9a4b6ec6";
-const pixabayAPIkey = "17380540-339e203bdfdb80a5fba13fad4";
+const WeatherbitKey = '213e079104f44a07b37c0ca166bf31ce';
+const pixabayAPIKey = '17380540-339e203bdfdb80a5fba13fad4';
 
 
 
@@ -32,9 +34,9 @@ const arrivalInput = document.querySelector('#form-arrival');
 const dateInput = document.querySelector('#form-date');
 
 
-// function postData to POST data 
+// function postData to POST data to our 'endpoint js object' in our local server 
 export const postData = async (url = '', data = {}) => {
-    
+    // fetch the data from any given url
     const fetchData = await fetch(url, {
       method: "POST",
       credentials: "same-origin",
@@ -57,12 +59,12 @@ export const postData = async (url = '', data = {}) => {
   }
   
 
-// function getCityData to get required city data 
+// function getCityData to get required city data (latitude, longitude, country) from the geonamesAPI 
 export const getCityData = async (geonamesApiURL, arrivalInputText, geonamesApiUsername) => {
-  
+    // fetch the data from the geonamesAPI
     const data = await fetch(geonamesApiURL + arrivalInputText + '&maxRows=5&' + 'username=' + geonamesApiUsername);
     try {
-        
+        // parse json response 
         const cityData = await data.json();
         return cityData;
     } catch (error) {
@@ -72,10 +74,10 @@ export const getCityData = async (geonamesApiURL, arrivalInputText, geonamesApiU
 
 // function getWeatherData to get required weather data from the weatherbitAPI
 export const getWeatherData = async (cityLatitude, cityLongitude) => {
-   // fetch the data from the weatherbitAPI
+    // fetch the data from the weatherbitAPI
     const data = await fetch(weatherbitApiURL + 'lat=' + cityLatitude + "&lon=" + cityLongitude + "&key=" + WeatherbitKey);
     try {
-      
+        // parse json response
         const weatherData = await data.json();
         return weatherData;
     } catch (error) {
@@ -146,7 +148,8 @@ export const addTrip = (event => {
 
 
 
-
+// Adding event listeners to the DOM elements
+// delete button
 resetButton.addEventListener('click', (event) => {
     event.preventDefault();
     formSection.reset();
@@ -155,6 +158,11 @@ resetButton.addEventListener('click', (event) => {
 })
 // form submit
 const submitRequest = formSection.addEventListener('submit', addTrip);
+
+
+
+
+
 
 export {submitRequest}
 

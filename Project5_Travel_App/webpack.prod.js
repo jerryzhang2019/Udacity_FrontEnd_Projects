@@ -1,12 +1,14 @@
 const common = require('./webpack.common')
-const {merge} = require('webpack-merge')
+const merge = require('webpack-merge')
 const path = require('path');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const terserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
+
+
 
 module.exports = merge(common, {
     mode: 'production',
