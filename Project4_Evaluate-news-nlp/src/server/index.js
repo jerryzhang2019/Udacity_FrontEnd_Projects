@@ -1,56 +1,53 @@
+const dotenv = require('dotenv');
+dotenv.config();
+//Node Server Config 
 var path = require('path')
 const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
-
-var aylien = require('aylien_textapi');
+const cors = require('cors')
 const bodyParser = require('body-parser');
+//test 
+const mockAPIResponse = require('./mockAPI.js')
+//API Requirements 
+var aylien = require("aylien_textapi");
+var textapi = new aylien({
+    application_id: process.env.API_ID,
+    application_key: process.env.API_KEY
+  });
 
-require('dotenv').config()
-
-const textapi = new aylien({
-    appilication_id: `${process.env.API_ID}`,
-    appilication_key:`${process.env.API_KEY}`
-});
-
+/* Middleware*/
+//Here we are configuring express to use body-parser as middle-ware.
 const app = express()
-
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
-
+app.use(cors())
 app.use(express.static('dist'))
-
-console.log(__dirname)
-
+app.use(bodyParser.urlencoded({ extended: true}));
+  app.use(bodyParser.json())
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 app.get('/', function (req, res) {
-    // res.sendFile('dist/index.html')
-    res.sendFile(path.resolve('dist/index.html'))
+    res.sendFile('dist/index.html')
+})
+//test API 
+app.get('/test', function (req, res) {
+    res.json(mockAPIResponse);
 })
 
 // designates what port the app will listen to for incoming requests
-app.listen(8082, function () {
-    console.log('Example app listening on port 8082!')
+app.listen(8080, function () {
+    console.log('Example app listening on port 8080!')
 })
-
-app.post('/testing',async(req, res, next) =>{
-    console.log(req.body);
-
-
-    
-    try{
-        var data=textapi.sentiment({
-            'text':req.body.theText
-        },function(error,response){
-            if(error === null){
-                console.log(response);
-                res.send(response);
-            }
-        });
-
-    }catch(error){
-        return next(error)
-    }
-})
-
-app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
-})
+// Post into route
+app.post("/article", (req, res) => {
+    textapi.sentiment({
+      url: req.body.text, 
+      mode: 'document'
+    }, function(error, response) {
+      console.log(response)
+      res.send(response)
+      if (error === null) {
+        console.log(response);
+      }
+    })
+  });

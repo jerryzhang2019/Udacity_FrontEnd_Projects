@@ -2,47 +2,72 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Test</title>
+        <title>NLP Articles</title>
     </head>
-
     <body>
         <header>
-            <div class="">
-                Logo
-            </div>
-            <div class="">
-                navigation
+            <div class="tittle">
+                <h1 style="color: white;">News Articles Evaluator Through Natural Language Processing</h1>
+                <h3 style="color: white;">Udacity</h3>
             </div>
         </header>
-
         <main>
+            <h1 style="text-align: center;">About Aylian Text Analysis API</h1>
+            <p style="text-align: center;">
+                The Aylien Text Analysis API provides powerful and flexible AI-driven content analysis solutions that bring the power of NLP to the masses.<br> We help developers, data scientists,and marketers understand human-generated textual content at scale.
+            </p>
             <section>
                 <form class="" onsubmit="return Client.handleSubmit(event)">
-                    <input id="name" type="text" name="input" value="" placeholder="Name">
-                    <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
+                    <input id="name" type="url" name="test-url" value=""  placeholder="https://www.please_put_URL.com">
+                    <input style="margin-left:25px;" id ="sub" type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
                 </form>
+                <p id ="error" style="color: red;"></p>
             <section>
-
             <section>
-                <strong>Form Results:</strong>
-                <div id="results"></div>
+                <strong>URL Results:</strong>
+                <div id="results">
+                    <ul>
+                        <li>
+                            <h3>Text Polarity:</h3>
+                            <p id="polarity"></p>
+                            <h4>Polarity Confidence: </h4>
+                            <p id="polarity_confidence"></p>
+                        </li>
+    
+                        <li>
+                            <h3>Text Subjectivity:</h3>
+                            <p id="subjectivity"></p>
+                            <h4>Subjectivity Confidence: </h4>
+                            <p id="subjectivity_confidence"></p>
+                        </li>
+    
+                        <h3>Text Quote:</h3>
+                        <p id="quote" style="padding: 60px 0;"></p>
+                    </ul>
+                </div>
             </section>
         </main>
-
         <footer>
-            <p>This is a footer</p>
+            <p>Be In touch</p>
+            <ul id="social-media">
+                <li><a href="https://www.facebook.com/omar.m.salem.9" target="_blank"><i
+                            class="fab fa-facebook-square"></i></a></li>
+                <li><a href="https://twitter.com/Omar_bn_Salem" target="_blank"><i class="fab fa-twitter-square"></i></a>
+                </li>
+                <li><a href="https://www.linkedin.com/in/OmarMahmmoudSalem/" target="_blank"><i
+                            class="fab fa-linkedin"></i></a></li>
+                <li><a href="https://github.com/OmaRoiid" target="_blank"><i class="fab fa-github"></i></a></li>
+                <li><a href="https://medium.com/@omarmahmoudsalem/" target="_blank"><i class="fab fa-medium"></i></a></li>
+            </ul>
         </footer>
-        <script>
-            if('serviceWorker' in navigator){
-                window.addEventListener('load',()=>{
-                    navigator.serviceWorker.register('/service-worker.js').then(regestration=>{
-                        console.log('SW registered successfuly:',registration);
-                    });
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-a11y="true">
+            // Check that service workers are supported
+            if ('serviceWorker' in navigator) {
+                // Use the window load event to keep the page load performant
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js');
                 });
-            }else{
-                console.log("Service Working not supported");
             }
         </script>
-
     </body>
 </html>
