@@ -1,9 +1,12 @@
 var validUrl = require('valid-url')
 function handleSubmit(event) {
     event.preventDefault()
+
     console.log("::: Form Submitted :::")
     //get the URL From input faild 
     let inputUrl = document.getElementById('name').value
+    console.log("Input URL=:", inputUrl)
+
     //check the  url validation
     if (validUrl.isUri(inputUrl)){
       postData('http://localhost:8080/article', inputUrl)
@@ -24,9 +27,10 @@ const postData = async (path, input_url) => {
       body: JSON.stringify({text: input_url})
         })
         .then(res => {
-          console.log(res)
+          console.log("The search result is: ",res)
           return res.json()
         })
+
         //Update the UI 
         .then(function(res) {
           console.log(res);

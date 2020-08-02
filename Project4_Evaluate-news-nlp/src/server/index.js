@@ -1,18 +1,26 @@
 const dotenv = require('dotenv');
 dotenv.config();
+console.log(`Your API key is ${process.env.API_KEY}`);
+
 //Node Server Config 
 var path = require('path')
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser');
 //test 
-const mockAPIResponse = require('./mockAPI.js')
+const mockAPIResponse = require('./mockAPI.js');
+
+
 //API Requirements 
 var aylien = require("aylien_textapi");
+console.log(process.env.API_ID);
+console.log(process.env.API_KEY);
+
 var textapi = new aylien({
     application_id: process.env.API_ID,
     application_key: process.env.API_KEY
   });
+
 
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
