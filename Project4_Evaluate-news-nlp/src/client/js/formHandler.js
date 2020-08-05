@@ -1,8 +1,8 @@
 var validUrl = require('valid-url')
 function handleSubmit(event) {
     event.preventDefault()
-
     console.log("::: Form Submitted :::")
+    
     //get the URL From input faild 
     let inputUrl = document.getElementById('name').value
     console.log("Input URL=:", inputUrl)
